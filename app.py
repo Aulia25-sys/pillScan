@@ -482,16 +482,18 @@ def clahe_enhance(img, clip_limit=1.5, tile=4):
     rgb = cv2.cvtColor(cv2.merge([l_eq, a, b]), cv2.COLOR_LAB2RGB)
     return Image.fromarray(rgb, mode="RGB")
 
-def preprocess(img, use_rembg=True):
+def preprocess(img, use_rembg=False): # Set default ke False
     img = img.convert("RGB")
     if use_rembg:
         try:
+            # Panggilan rembg dimasukkan ke dalam blok kondisional yang ketat
             from rembg import remove as rembg_remove
             out = rembg_remove(img)
             canvas = Image.new("RGB", out.size, (128, 128, 128))
             canvas.paste(out, mask=out.split()[3])
             img = canvas
         except Exception:
+            # Jika crash/timeout, langsung dilewati tanpa menghentikan Streamlit
             pass
     img = resize_with_pad(img)
     img = clahe_enhance(img)
@@ -560,7 +562,7 @@ with col1:
         label_visibility="collapsed",
     )
 with col2:
-    use_rembg = st.checkbox("Hapus BG", value=True, help="Aktifkan background removal")
+    use_rembg = st.checkbox("Hapus BG", value=Falsw, help="Aktifkan background removal")
 st.markdown('</div>', unsafe_allow_html=True)
 
 model, device = load_model(model_choice)
