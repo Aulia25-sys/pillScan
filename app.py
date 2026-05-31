@@ -444,7 +444,7 @@ hr { border-color: #E8EDF5 !important; }
 @st.cache_resource(show_spinner="Memuat model...")
 def load_model(model_type: str):
     device = torch.device("cpu")
-    model_path = Path(f"models/{model_type}_5kelas.pth")
+    model_path = Path(f"pillScan/models/{model_type}_5kelas.pth")
     if not model_path.exists():
         st.error(f"File model tidak ditemukan: {model_path}")
         st.stop()
