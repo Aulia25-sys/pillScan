@@ -562,7 +562,7 @@ with col1:
         label_visibility="collapsed",
     )
 with col2:
-    use_rembg = st.checkbox("Hapus BG", value=Falsw, help="Aktifkan background removal")
+    use_rembg = st.checkbox("Hapus BG", value=False, help="Aktifkan background removal")
 st.markdown('</div>', unsafe_allow_html=True)
 
 model, device = load_model(model_choice)
